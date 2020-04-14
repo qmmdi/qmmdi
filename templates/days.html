@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/style.css" type="test/css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min.js"></script>
+    </head>
+    <body>
+        <div class="container d-flex h-100">
+            <div class="row align-self-center w-100">
+                <div class="col-9 mx-auto">
+                    <h2 class="text-center text-dark mb-4">how many days have you been in quarantine?</h2>
+                </div>
+                <div class="col-6 mx-auto">
+                    <div class="jumbotron">
+                        <form action="{{ url_for('timer') }}" method="post" name="form_1" onSubmit="return validate()" class="text-center">
+                            <div class="form-group>">
+                              <label for="start-date" class="text-dark"></label>
+                              <input type="text" name="start" class="form-control" id="start-date" placeholder="start date (mm/dd/yyyy)">
+                            </div>
+                            <button type="submit" class="btn btn-outline-dark mt-2" >calculate</button>
+                          </form>
+                          {% if days %}
+                          <h1>{{ days }}</h1>
+                            {% else %}
+                          <h1>0</h1>
+                        {% endif %}
+                        <p class="lead">days in quarantine</p>
+                    </div>
+                    <a href="/">take me home</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            function validate() {
+                var date = document.forms["form_1"]["start"].value
+                var input = moment(date);
+
+                if (!input.isValid()) {
+                    alert('please use mm/dd/yyyy format');
+                        return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        </script>
+    </body>
+</html>

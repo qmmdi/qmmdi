@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the ColumnChart package.
+        google.load('visualization', '1', { 'packages': ['corechart'] });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table, 
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+
+            // Create our data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+            data.addColumn('number', 'Number of frobnications');
+            data.addRows([
+                {% for k,v in data.items() %}
+                ['{{ k }}', {{ v }}],
+                {% endfor %}
+            ]);
+
+        // Instantiate and draw our chart, passing in some options.  All the
+        // options go into a single {}; some options' values go into a nested
+        // {}. Some values, such as colors, must be given as strings.  The
+        // Google Charts API is well-documented.
+        var chart = new google.visualization.LineChart(
+            document.getElementById('chart_div'));
+        chart.draw(data, {
+            legend: 'none', vAxis: { baseline: 0 },
+            colors: ['#A0D100']
+        });
+          }
+    </script>
+</head>
+
+
+<body>
+    <div class="jumbotron d-flex align-items-center">
+        <div class="container">
+            <div id="chart_div"></div>
+        </div>
+      </div>
+</body>
+
+</html>
