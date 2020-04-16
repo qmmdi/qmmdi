@@ -20,8 +20,12 @@ def california():
             hourly_data.append(','.join(row))
         
         for i in hourly_data:
-            date = i.split(',')[0]
             deaths = i.split(',')[2]
+            date = i.split(',')[0][5:]
+            
+            if date[0] == '0':
+                date = date[1:]
+
             if date in hourly_dict:
                 if hourly_dict[date] < deaths:
                     hourly_dict[date] = deaths
