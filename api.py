@@ -22,7 +22,7 @@ def california():
         for i in hourly_data:
             deaths = i.split(',')[2]
             date = i.split(',')[0][5:]
-            
+
             if date[0] == '0':
                 date = date[1:]
 
@@ -36,7 +36,6 @@ def california():
         dates.append(date)
         max_deaths.append(deaths)
     
-    print(hourly_dict)
     return render_template('california.html', labels = dates, values = max_deaths,
      updated_time = hourly_data[-1].split(',')[1], updated_day = hourly_data[-1].split(',')[0])
 
@@ -51,10 +50,14 @@ def timer():
             year = start[6:]
             start = date(int(year), int(month), int(day))
             today = date.today()
+            delta = today - start
+
+            # TODO - should be done in form validation
             if start > today:
                 return redirect(url_for('california'))
-            delta = today - start
+
             return render_template('days.html', days = delta.days)
+
         except ValueError:
             return redirect(url_for('california'))
 
