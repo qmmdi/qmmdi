@@ -27,7 +27,7 @@ def california():
                 date = date[1:]
 
             if date in hourly_dict:
-                if hourly_dict[date] < deaths:
+                if int(hourly_dict[date]) < int(deaths):
                     hourly_dict[date] = deaths
             else:
                 hourly_dict[date] = deaths

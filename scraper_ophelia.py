@@ -11,7 +11,7 @@ def get_death_count():
     page = requests.get(url, headers = headers)
     soup = BeautifulSoup(page.content, 'html.parser')
     divs = soup.find_all('div', {'class': 'big-number'})
-    daily_data.write('{},{},{}\n'.format(date.today(), current_time, divs[1].text))
+    daily_data.write('{},{},{}\n'.format(date.today(), current_time, divs[1].text.replace(',','')))
     daily_data.close()
 
 get_death_count()
